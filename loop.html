@@ -4,22 +4,49 @@
 	<meta charset="utf-8" />
 	<title>Kodune Ülesanne</title>
 	<style type="text/css">
-	.active { background: skyblue; padding: 10px;}
+		.active { background: skyblue; padding: 10px;}
 	</style>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+
 	<script type="text/javascript">
+		$(function(){
+			$("li:first").addClass("active");           // activating first element, it gets blue
+
+			$("#next").click(function next() {
+				var activeLi = $("li.active");          // storing "li" with class active to argument
+				if (activeLi.is(":last-child")){        // checking if "li" is the last "li"
+					activeLi.removeClass("active");     // removing class "active" from currently active "li"
+					$("li:first").addClass("active");   // adding "active" class to the first "li", if the previous "active li" was the last one
+				} else {
+					activeLi.removeClass('active');     // removing class "active from currently active "li
+					activeLi.next().addClass('active'); // adding "active" class to next "li", if previous active "li" was not last
+				}
+			});
+
+			$("#prev").click(function prev() {
+				var activeLi = $("li.active");          // storing "li" with class active to argument
+				if (activeLi.is(":first-child")){       // checking if "li" is the first "li"
+					activeLi.removeClass("active");     // removing class "active" from currently active "li"
+					$("li:last").addClass("active");    // adding "active" class to the last "li", if the previous "active li" was the first one
+				} else {
+					activeLi.removeClass('active');     // removing class "active from currently active "li
+					activeLi.prev().addClass('active'); // adding "active" class to next "li", if previous active "li" was not first
+				}
+			});
+		});
 
 	</script>
 </head>
+
 <body>
 <button id="next">edasi</button>
 <button id="prev">tagasi</button>
 
 <ul>
-<li>esimene</li>
-<li>teine</li>
-<li>kolmas</li>
-<li>neljas</li>
+	<li>esimene</li>
+	<li>teine</li>
+	<li>kolmas</li>
+	<li>neljas</li>
 </ul>
 
 </body>
